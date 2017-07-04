@@ -1,3 +1,16 @@
+/*
+    FileInputOutput handles file I/O.
+    Student files are stored in the format:
+    Name of file: StudentID.txt where StudentID has digits 0-9 and starts with a digit 1-9.
+    Student Password
+    Student Name
+    NameOfCourse$##$##$##
+    NameOfCourse$##$##$##
+    Administrator files are stored in the format:
+    Name of file: AdministratorID.txt where AdministratorID has digits 0-9 and starts with a digit 1-9.
+    Administrator Password
+*/
+
 package database;
 
 import java.io.FileInputStream;
@@ -10,6 +23,9 @@ import java.util.ArrayList;
 
 public class FileInputOutput
 {
+    /**
+     studentIDExists checks if the passed student ID exists in the Students folder.
+     */
     public static boolean studentIDExists(int studentID)
     {
         try
@@ -22,6 +38,10 @@ public class FileInputOutput
             return false;
         }
     }
+
+    /**
+     adminIDExists checks if the passed administrator ID exists in the Administrators folder.
+     */
     public static boolean adminIDExists(int administratorID)
     {
         try
@@ -34,6 +54,10 @@ public class FileInputOutput
             return false;
         }
     }
+
+    /**
+     rightStudentPassword checks if the password matches the studentID.
+     */
     public static boolean rightStudentPassword(int studentID, String password)
     {
         try
@@ -46,6 +70,10 @@ public class FileInputOutput
             return false;
         }
     }
+
+    /**
+     rightAdminPassword checks if the password matches the administratorID.
+     */
     public static boolean rightAdminPassword(int administratorID, String password)
     {
         try
@@ -58,7 +86,10 @@ public class FileInputOutput
             return false;
         }
     }
-    
+
+    /**
+     getStudentFromFile returns a Student object using the passed ID.
+     */
     public static Student getStudentFromFile(int username) throws FileNotFoundException
     {
         Scanner fInput = new Scanner(new FileInputStream("Students/" + username + ".txt"));
@@ -78,6 +109,10 @@ public class FileInputOutput
         fInput.close();
         return student;
     }
+
+    /**
+     getStudentsFromFolder returns all the Student objects in the Students folder.
+     */
     public static Student[] getStudentsFromFolder()
     {
         File[] studentFilesTemp = new File("Students").listFiles();
@@ -101,7 +136,10 @@ public class FileInputOutput
         
         return students;
     }
-    
+
+    /**
+     createNewStudentFile creates a new Student file in the Students folder.
+     */
     public static void createNewStudentFile(Student student) throws Exception
     {
         if(studentIDExists(student.getStudentID())) {
@@ -131,6 +169,10 @@ public class FileInputOutput
         }
         catch(FileNotFoundException e) {}
     }
+
+    /**
+     replaceStudentFile replaces a Student file in the Students folder.
+     */
     public static void replaceStudentFile(Student student) throws FileNotFoundException
     {
         if(!studentIDExists(student.getStudentID()))
@@ -156,6 +198,10 @@ public class FileInputOutput
         }
         catch(FileNotFoundException e) {}
     }
+
+    /**
+     deleteStudentFile deletes a Student file from the Students folder.
+     */
     public static void deleteStudentFile(Student student) throws FileNotFoundException
     {
         if(!studentIDExists(student.getStudentID()))
